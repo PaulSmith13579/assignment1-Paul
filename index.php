@@ -3,6 +3,7 @@
 <title>Homepage</title>
 <h1 class='text-primary'>Welcome to our shopfront</h1>
 <?php if (!isset($_SESSION["username"])) : ?>
+
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
         <div class="form-group">
             <label>Username</label>

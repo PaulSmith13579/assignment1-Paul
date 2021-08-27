@@ -40,6 +40,8 @@ if ($userCount == 0) {
     addUser("user", "user", "User", "user.jpg", "User");
     addUser("Paul", "Paul", "Paul", "Paul.jpg", "User");
 }
+$query = file_get_contents("sql/Products.sql");
+createTable($query, "Products");
 
 function add_product($productName, $productCategory, $productQuantity, $productPrice, $productImage, $productCode) {
     global$conn;
@@ -66,3 +68,4 @@ if($productCount == 0) {
 
 }
 ?>
+
