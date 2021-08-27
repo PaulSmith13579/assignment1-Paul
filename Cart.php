@@ -14,6 +14,7 @@
 
 <?php
 //this code runs for when you remove item
+date_default_timezone_set("Australia/Sydney");
 $status = "";
 if (isset($_POST['action']) && $_POST['action'] == "remove") {
     if (!empty($_SESSION["shopping_cart"])) {
@@ -41,6 +42,11 @@ if (isset($_POST['action']) && $_POST['action'] == "change") {
 ?>
 
 <link rel="stylesheet" href="css/orderForm.css">
+
+
+<div class="message_box"style="margin:10px 0px;">
+    <?php echo $status;?>
+</div>
 <div class="cart">
     <div class="cart">
         <?php
@@ -114,27 +120,14 @@ if (isset($_POST['action']) && $_POST['action'] == "change") {
                 </tr>
                 </tbody>
             </table>
+        <form method="post">
+            <input type="submit" name="orderProducts" value="Order Now"/>
+        </form>
             <?php
         }
         ?>
     <?php
-    date_default_timezone_set("Australia/Sydney");
-
-
-
-
-//
-//    <div class="message_box"style="margin:10px 0px;">
-//        <?php echo $status;?>
-<!--    </div>-->
-
-
-
-    <form method="post">
-        <input type="submit" name="orderProducts" value="Order Now"/>
-    </form>
-    <?php
-    if(isset($_POST['orderProducts'])) {
+//    if(isset($_POST['orderProducts'])) {
 // Writing the order to the database
         $orderNumber ="ORDER".substr(md5(uniqid(mt_rand(),true)), 0, 8);
         foreach($_SESSION["shopping_cart"]as$row) {
@@ -148,7 +141,7 @@ if (isset($_POST['action']) && $_POST['action'] == "change") {
 
         }
         $_SESSION["shopping_cart"] = [];
-    }
+
 
 ?>
 

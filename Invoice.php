@@ -19,16 +19,19 @@ if (empty($_GET["order"])) { // Showing the list of open order (case 1)
     echo "<h1 class='text-primary'>Invoices</h1>";
     echo "<h2 class='text-primary'>Choose your invoice number below.</h2>";
     if (isset($_SESSION["user_id"])) { // Case 1 or 3?
-        if($_SESSION["level"] =="Administrator") {
+        if ($_SESSION["level"] == "Administrator") {
             $query = $conn->query("SELECT orderCode FROM orderDetails");
             $count = $conn->querySingle("SELECT orderCode FROM `orderDetails`");
+
+        } else {
+            $userID = $_SESSION["user_id"];
+            $query = $conn->query("SELECT orderCode FROM orderDetails WHERE customerID='$userID' AND status='OPEN'");
+            $count = $conn->querySingle("SELECT orderCode FROM `orderDetails` WHERE customerID='$userID' AND status='OPEN'");
+
         }
-        $userID = $_SESSION["user_id"];
-        $query = $conn->query("SELECT orderCode FROM orderDetails WHERE customerID='$userID' AND status='OPEN'");
-        $count = $conn->querySingle("SELECT orderCode FROM `orderDetails` WHERE customerID='$userID' AND status='OPEN'");
 
         $orderCodesForUser = [];
-        if ($count > 0){  // Has the User made orders previously? Case 1
+        if ($count > 0) {  // Has the User made orders previously? Case 1
             while ($data = $query->fetchArray()) {
                 $orderCode = $data[0];
                 array_push($orderCodesForUser, $orderCode);
@@ -41,16 +44,15 @@ if (empty($_GET["order"])) { // Showing the list of open order (case 1)
             foreach ($unique_orders as $order_ID) {
                 echo "<p><a href='invoice.php?order=" . $order_ID . "'>Order : " . $order_ID . "</a></p>";
             }
-        }     else{ // Case 3
+
+        } else { // Case 3
             echo "<p class='alert-danger'>You don't have any open orders. Please make an order to view them</p>";
         }
-    } else {// Case 5
+
+    }else {// Case 5
         header("Location:index.php");
     }
-}
-
-
-else{// Case 2 - There is an order code in the URL
+}else{// Case 2 - There is an order code in the URL
     $order_id = $_GET["order"];
     echo"<h1 class='text-primary'>Invoice -". $order_id ."</h1>";
     $query = $conn->query("SELECT p.productName, p.price, o.quantity, p.price*o.quantity as SubTotal, o.orderDate, o.status FROM orderDetails o INNER JOIN products p on o.productCode = p.code WHERE orderCode='$order_id'");
@@ -76,8 +78,10 @@ else{// Case 2 - There is an order code in the URL
     }
 
     echo"<div class='row'><div class='col'></div><div class='col'></div><div class='col display-4'>Total : $". $total ."</div></div>";
-    echo"<div class='row'><div class='col'></div><div class='col'></div><div class='col'>". $orderDate ."</div></div>";
+    echo"<div class='row'><div class='col'></div><div class='col'></div><div class='col'>". $data[4] ."</div></div>";
 
 }
+
+
 
 ?>
