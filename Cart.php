@@ -127,7 +127,7 @@ if (isset($_POST['action']) && $_POST['action'] == "change") {
         }
         ?>
     <?php
-//    if(isset($_POST['orderProducts'])) {
+ if(isset($_POST['orderProducts'])) {
 // Writing the order to the database
         $orderNumber ="ORDER".substr(md5(uniqid(mt_rand(),true)), 0, 8);
         foreach($_SESSION["shopping_cart"]as$row) {
@@ -142,6 +142,7 @@ if (isset($_POST['action']) && $_POST['action'] == "change") {
         }
         $_SESSION["shopping_cart"] = [];
 
+    }
 
 ?>
 

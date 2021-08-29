@@ -24,6 +24,7 @@
         $code => array(
             'productName' => $name,
             'price' => $price,
+            'code' =>$code,
             'quantity' => 1,
             'image' => $image)
     );
