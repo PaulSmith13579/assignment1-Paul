@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fileType = $_FILES['file']['type'];
 
 //defining what type of file is allowed
-// We seperate the file, and obtain the end.
+// We separate the file, and obtain the end.
         $fileExt = explode('.', $fileName);
         $fileActualExt = strtolower(end($fileExt));
 //We ensure the end is allowable in our thing.

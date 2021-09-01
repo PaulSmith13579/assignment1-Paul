@@ -40,3 +40,44 @@ $accessLevel = $userData[5];
         </div>
     </div>
 </div>
+
+<?php
+$numberOfRowsReturned = $conn->querySingle("SELECT count(*) FROM messaging WHERE recipient='$userId'");
+
+if ($numberOfRowsReturned > 0) {
+$messages = $conn->query("SELECT * FROM messaging WHERE recipient='$userId'");
+?>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 text-success"><h2>From</h2></div>
+        <div class="col-md-4 text-success"><h2>Message</h2></div>
+        <div class="col-md-4 text-success"><h2>Date Sent</h2></div>
+    </div>
+
+    <?php
+    while($individual_message = $messages->fetchArray()) {
+        $sender = $individual_message[1];
+        $message = $individual_message[3];
+        $dateSubmitted = $individual_message[4];
+        $senderName = $conn->querySingle("SELECT username FROM user WHERE user_id='$sender'");
+        ?>
+        <divclass="row">
+        <divclass="col-md-4">
+        <?php
+        if (!$senderName) {
+            echo $sender;
+        } else {
+            echo $senderName;
+        }
+
+        ?>
+        </div>
+        <divclass="col-md-4"><?php echo$message;?></div>
+        <divclass="col-md-4"><?php echo$dateSubmitted;?></div>
+        </div>
+
+        <?php
+    }
+
+}
+?>

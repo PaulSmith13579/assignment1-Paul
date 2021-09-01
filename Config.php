@@ -14,9 +14,6 @@ function createTable($sqlStmt, $tableName)
     }
 }
 
-$query = file_get_contents("sql/create-user.sql");
-createTable($query, "User");
-
 function addUser($username, $unhashedPassword, $name, $profilePic, $accessLevel) {
     global $conn;
     $hashedPassword = password_hash($unhashedPassword, PASSWORD_DEFAULT);
@@ -59,6 +56,15 @@ function add_product($productName, $productCategory, $productQuantity, $productP
         echo"<p style='color: red'>Product:".$productName.": Created Failure</p>";
     }
 }
+$query = file_get_contents("sql/create-user.sql");
+createTable($query, "User");
+$query = file_get_contents("sql/messaging.sql");
+createTable($query, "Messaging");
+$query = file_get_contents("sql/Orders.sql");
+createTable($query, "Orders");
+$query = file_get_contents("sql/Products.sql");
+createTable($query, "Products");
+
 $query= $conn->query("SELECT COUNT(*) as count FROM products");
 $rowCount = $query->fetchArray();
 $productCount = $rowCount["count"];

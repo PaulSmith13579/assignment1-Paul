@@ -141,8 +141,8 @@ if (isset($_POST['action']) && $_POST['action'] == "change") {
 
         }
         $_SESSION["shopping_cart"] = [];
-
+     $orderMessage = "Order #:".$orderNumber." has been submitted";
+     $conn->exec("INSERT INTO messaging (sender, recipient, message, dateSubmitted) VALUES ('$customerID',1, '$orderMessage', '$orderDate')");
     }
-
 ?>
 

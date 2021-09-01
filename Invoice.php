@@ -78,8 +78,30 @@ if (empty($_GET["order"])) { // Showing the list of open order (case 1)
     }
 
     echo"<div class='row'><div class='col'></div><div class='col'></div><div class='col display-4'>Total : $". $total ."</div></div>";
-    echo"<div class='row'><div class='col'></div><div class='col'></div><div class='col'>". $data[4] ."</div></div>";
+    echo"<div class='row'><div class='col'></div><div class='col'></div><div class='col'>". $orderDate ."</div></div>";
 
+    if ($_SESSION["level"] == "Administrator") {
+        if (!empty($_GET["status"])) {
+            if ($_GET["status"]=="CLOSED") {
+                $conn->exec("UPDATE orderdetails SET status='CLOSED' WHERE orderCode='$order_id'");
+                $orderMessage = "Order #:".$order_id." has been dispatched";
+                $customer_id = $conn->querySingle("SELECT customerID FROM orderDetails WHERE orderCode = '$order_id'");
+                $conn->exec("INSERT INTO messaging (sender, recipient, message, dateSubmitted) VALUES ('1', $customer_id,'$orderMessage', '$orderDate')");
+            } else {
+                $conn->exec("UPDATE orderdetails SET status='OPEN' WHERE orderCode='$order_id'");
+                $orderMessage = "Order #:".$order_id." has been re-opened";
+                $customer_id = $conn->querySingle("SELECT customerID FROM orderDetails WHERE orderCode = '$order_id'");
+                $conn->exec("INSERT INTO messaging (sender, recipient, message, dateSubmitted) VALUES ('1', $customer_id,'$orderMessage', '$orderDate')");
+            }
+        }
+        if ($status=="OPEN") {
+            echo "STATUS: OPEN";
+            echo "<p><a href='invoice.php?order=".$order_id."&status=CLOSED'>Click here to close</a></p>";
+        } else {
+            echo "STATUS: CLOSED";
+            echo "<p><a href='invoice.php?order=".$order_id."&status=OPEN'>Click here to open</a></p>";
+        }
+    }
 }
 
 
