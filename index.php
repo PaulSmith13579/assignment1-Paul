@@ -2,7 +2,11 @@
 <?php include 'login.php'; ?>
 <title>Homepage</title>
 <h1 class='text-primary'>Welcome to our shopfront</h1>
-<?php if (!isset($_SESSION["username"])) : ?>
+<?php if (!isset($_SESSION["username"])) :
+echo "Username: Paul <br> Password: Paul"
+
+
+    ?>
 
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
         <div class="form-group">
