@@ -42,6 +42,17 @@
                 <li class="nav-item">
                     <a class="nav-link"href="invoice.php">Invoices</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link"href="Search-user.php">Search user</a>
+                </li>
+                <?php if (isset($_SESSION["level"])) : ?>
+                    <?php if ($_SESSION["level"] == "Administrator") : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="search-user.php">Search Users</a>
+                        </li>
+                    <?php endif; ?>
+                <?php endif; ?>
+
             </ul>
         </div>
     </div>
