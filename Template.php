@@ -43,13 +43,21 @@
                     <a class="nav-link"href="invoice.php">Invoices</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"href="Search-user.php">Search user</a>
+                    <a class="nav-link"href="User-Search.php">Search user</a>
                 </li>
                 <?php if (isset($_SESSION["level"])) : ?>
                     <?php if ($_SESSION["level"] == "Administrator") : ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="search-user.php">Search Users</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administrator Functions</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="user-search.php">Search Users</a>
+                                <a class="dropdown-item" href="user-add.php">Add Users</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="product-add.php">Add Products</a>
+                            </ul>
                         </li>
+
+
                     <?php endif; ?>
                 <?php endif; ?>
 

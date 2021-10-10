@@ -22,7 +22,7 @@ if (isset($_SESSION['level']) == "Administrator") {
     $userCount = $conn->query("SELECT count(*) FROM user");
     $results = $userCount->fetchArray();
     $userCountNumber = $results[0];
-    echo "<br>The number of users is :" . $userCountNumber . "</br>";
+    echo "<br>The number of users is: " . $userCountNumber . "</br>";
 
 
     if (isset($_POST['search'])) {
