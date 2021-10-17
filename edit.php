@@ -12,7 +12,7 @@
 
 <?php
 
-if (isset($_GET["user_id"])) {
+if (isset($_GET["username"])) {
     $userToLoad = $_GET["user_id"];
 } else {
     header("location:index.php");
@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($fileError === 0) {
             //File is smaller than yadda.
             if ($fileSize < 10000000000) {
-                //file name is now a unique ID based on time with IMG- precedding it, followed by the file type.
+                //file name is now a unique ID based on time with IMG- preceding it, followed by the file type.
                 $fileNameNew = uniqid('IMG-', True) . "." . $fileActualExt;
                 //upload location
                 $fileDestination = 'images/profilePic/' . $fileNameNew;

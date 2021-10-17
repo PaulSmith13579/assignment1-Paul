@@ -25,7 +25,7 @@
                     <a class="nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.php">Contact!</a>
+                    <a class="nav-link" href="Contact-Us.php">Contact Us</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="profile.php">User Profile</a>
